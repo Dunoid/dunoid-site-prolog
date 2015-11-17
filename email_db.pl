@@ -9,8 +9,14 @@
 :- use_module(library(regex)).
 :- use_module(library(persistency)).
 
+/*	This is a simple database for names and emails
+*	for now, it has no real purpose, but I hope to
+*	use it for a mailing list.
+*/
+
 :- persistent email(name:atom, email:atom).
 
+% The database file
 :- db_attach('email.pldb', []).
 
 %Basic Operations
@@ -33,7 +39,7 @@ search_all(Name, Email, List) :-
 swap_wildcards('*', _).
 swap_wildcards(Other, Other).
 
-swap_number('*', _). %Also have to convert the Email to a number
+swap_number('*', _). %If the wildcard is a number
 swap_number(X, Y) :-
 	atom_number(X, Y).
 
@@ -41,7 +47,7 @@ swap_number(X, Y) :-
 % Writing the results of a search as HTML text
 results_as_text(Name, Email, Output) :-
 	search_all(Name, Email, List), !,
-	% Check if there were any results.
+	% Check if there were any results before writing.
 	(List == [] -> Output = 'Your search returned no results.';
 	result_text(List, Output)).
 
