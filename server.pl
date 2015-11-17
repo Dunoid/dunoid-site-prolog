@@ -49,8 +49,7 @@ home_page(_) :-
 				'minors in Mathematics and -if I can work in some summer credits- Russian.']),
 			p(['You can see my recent programming projects ', a(href=programming, 'here.')]),
 			p(['Besides that, I fancy myself an ameteur artist.  I draw, compose, and sometimes ',
-				'even write. I also publish tutorials (in the most liberal interpretation of the ',
-				'word) on my YouTube channel ',i('Let\'s Do.')]),
+				'even write.']),
 			p(['To see my art, ', a(href=art, 'click here.')])
 		])).
 	
