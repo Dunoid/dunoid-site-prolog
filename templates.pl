@@ -15,10 +15,11 @@
 
 /* 	Page Content 
 *	elements that appear within a page.
+*	these aren't generally used outside the module.
 */
 header -->
 	html(
-		a( href(/), div( [class=banner,id=header], h1('Dunoid') ) )
+		a( href(/), div( [class=banner,id=header], h1('Dunoid [WIP]') ) )
 	).
 footer -->
 	html(
@@ -48,8 +49,8 @@ link_button(URL, Style, Text) -->
 	html( a( 
 		href(URL), input([type=button, style=Style, value=Text])
 	)).
-	
-%Generic name/age form for tests
+
+/* Generic name/age form for tests
 name_age_form(Name, Action, Method, Id, OnSubmit) -->
 	html(
 		form([
@@ -72,7 +73,8 @@ name_age_form(Name, Action, Method, Id, OnSubmit) -->
 			input([type(submit), value('Submit')])
 		])
 	).
-		
+*/
+
 /*	Page Templates
 *	full pages using the above content
 */
@@ -102,6 +104,8 @@ error_page( ErrorType, Message, Error) :-
 	).
 	
 % Basic text data for AJAX requests
+% TODO: make method for sending JSON data
+
 text_page(String, Data) :-
 	format('Content-type:text/plain~n~n'),
 	format(String, Data).
@@ -109,12 +113,15 @@ text_page(String, Data) :-
 text_page(String) :-
 	text_page(String, []).
 	
+
 /*	Paginated Template
 *	this allows for loading an arbitrary number of files
 *	onto a single page.
+*
 *	This isn't random access, which may be a problem in some uses.
-*	It is also very specific in its uses, which makes it useful 
-*	only for this site and maybe a few others without an overhaul.
+*	It is also very specific in how it's used, which could be an 
+*	issue in the long run.  Refactoring to allow a more flexible
+*	system will likely be a future task (searching by file date?).
 */
 
 paginated(Name, Request) :-   %Default page size is five files

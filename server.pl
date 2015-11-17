@@ -7,7 +7,6 @@
 
 % Custom template module
 :- use_module(templates).
-:- use_module(person_db).
 
 %File locations
 :- multifile http:location/3.
@@ -17,22 +16,23 @@ http:location(files, '/', []).
 
 :- http_handler(files(.), safe_file_reply, [prefix]). 
 
+%Automatically handle invalid directories with a 404
 safe_file_reply(Request) :-
 	http_reply_from_files('assets/', [], Request);
-	error_page(404, 'File Not Found', Request).
+	error_page(404, 'File Not Found', page_missing).
 
 %Pages
 
 :- http_handler(root(.), home_page, []).
 :- http_handler(root(art), paginated('Art'), []).
 
-% To Add:
-%:- http_handler(root(programming), paginated('Programming'), []).
-%:- http_handler(root(videos), paginated('Videos'), []).
-%:- http_handler(root(mail), mailing_form, []).
-%:- http_handler(root(admin), admin_login, []).
-%:- http_handler(root(db), database, []).
-
+/* TODO: Implement these pages
+:- http_handler(root(programming), paginated('Programming'), []).
+:- http_handler(root(videos), paginated('Videos'), []).
+:- http_handler(root(mail), mailing_form, []).
+:- http_handler(root(admin), admin_login, []).
+:- http_handler(root(db), database, []).
+*/
 
 %Starting the server
 html_set_options( [dialect(xhtml)] ).
@@ -52,7 +52,11 @@ home_page(_) :-
 				'even write.']),
 			p(['To see my art, ', a(href=art, 'click here.')])
 		])).
-	
+
+
+/*-- This was for testing the database functionality.
+     it will likely be reworked for a mailing list
+
 form_handler(Request) :-
 	catch(
 		form_page(Request),
@@ -97,6 +101,4 @@ search_people(Request) :-
 	text_page(Text);
 	%If the search fails, it defaults to this result
 	text_page('There was an error in your search.').
-
-error_403:-
-	error_page(403, 'Access Denied', 'no permission').
+*/
