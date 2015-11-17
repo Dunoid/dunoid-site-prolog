@@ -16,7 +16,6 @@ http:location(files, '/', []).
 
 :- http_handler(files(.), safe_file_reply, [prefix]). 
 
-%Automatically handle invalid directories with a 404
 safe_file_reply(Request) :-
 	http_reply_from_files('assets/', [], Request);
 	error_page(404, 'File Not Found', page_missing).

@@ -1,12 +1,12 @@
-:- module(templates,[ %Exported statements
-					basic_page/2,
-					error_page/3,
-					text_page/2,
-					text_page/1,
-					paginated/2,
-					paginated/3,
-					link_button//3
-					]).
+:- module(templates,[ 
+                    basic_page/2,
+                    error_page/3,
+                    text_page/2,
+                    text_page/1,
+                    paginated/2,
+                    paginated/3,
+                    link_button//3
+                    ]).
 
 :- use_module(library(http/thread_httpd)).
 :- use_module(library(http/http_dispatch)).

@@ -1,9 +1,9 @@
 :- module(	email_db,
-		 [	add_email/2, 		%Name, Email
-			remove_email/2, 	%Name, Email
-			search/2,			%Name, Email
-			search_all/3,		%Name, Email, List
-			results_as_text/3	%Name, Email, Text
+		 [	add_email/2,        %Name, Email
+			remove_email/2,     %Name, Email
+			search/2,           %Name, Email
+			search_all/3,       %Name, Email, List
+			results_as_text/3   %Name, Email, Text
 		 ]).
 
 :- use_module(library(regex)).
