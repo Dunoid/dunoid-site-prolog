@@ -174,7 +174,7 @@ blerb(Page, art) --> %Only show the big blerb on page 1
 		]),
 		p([class=banner,style='max-width:650px;'],[
 				'For more of my art, go to ', 
-				a(href='http:/dunoid.deviantart.com', 'my DevantART account'),
+				a(href='http://dunoid.deviantart.com', 'my DevantART account'),
 				'.'
 		])
 	]);
