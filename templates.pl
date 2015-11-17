@@ -15,7 +15,7 @@
 
 /* 	Page Content 
 *	elements that appear within a page.
-*	these aren't generally used outside the module.
+*	these aren't meant for use outside the module.
 */
 header -->
 	html(
@@ -154,7 +154,7 @@ paginated(Name, Length, Request) :-
 	basic_page(
 		Title,
 		html([
-			\blerb(Page, Mode),
+			\blerb(Page, Mode),     %blerb contains title and page description
 			\( templates:get_content(Start, End, Mode) ),
 			div(id=navbox, [
 				\link_button(PrevLink, 'float:left', '<<'),
@@ -162,7 +162,8 @@ paginated(Name, Length, Request) :-
 			])
 		])
 	).
-	
+
+%TODO: make blerbs for each mode 
 blerb(Page, art) --> %Only show the big blerb on page 1
 	{Page == 1},
 	html([
