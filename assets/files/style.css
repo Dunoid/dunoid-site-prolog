@@ -3,7 +3,7 @@ body{
 	background-color:#F7F5EC;
 	font-family:"Segoe UI", DengXian, "Microsoft MHei",  sans;
 	font-weight:200;
-	letter-spacing:2px;
+	letter-spacing:2pt;
 }
 
 a{
@@ -20,23 +20,23 @@ h1{
 	}
 
 h2{
-	letter-spacing:2px;
+	letter-spacing:3pt;
 	font-weight:300;
 }
 
 input{
 	background-color:#EEE9E2;
 	margin:0;
-	padding:0 5px;
+	padding:0 2pt;
 	display:inline;
 	
 	font:inherit;
-	font-size: 14px;
+	font-size: 14pt;
 	letter-spacing:inherit;
 	
 	border:none;
-	border-right: 2px solid #294EB2;
-	border-left: 2px solid #294EB2;
+	border-right: 2pt solid #294EB2;
+	border-left: 2pt solid #294EB2;
 	
 	transition: background-color 0.8s, border-color 0.3s;
 	-webkit-transition: background-color 0.8s, border-color 0.3s;
@@ -53,17 +53,19 @@ input:hover{
 }
 
 div#navbox{
-	font-size:20px;
+	font-size:20pt;
 	margin: 0px auto;
-	width:150px;
+	width:150pt;
 }
 
 #content {
 	border-right: 2px solid #294EB2;
 	border-left: 2px solid #294EB2;
-	max-width:1000px; 
+	width:75%;
+	max-width:2000px;
+	min-width:200px; 
 	margin:auto; 
-	padding:5px 30px 10px;
+	padding:4pt 25pt 8pt;
 	overflow:hidden;
 	position:relative;
 	z-index:1;
@@ -73,10 +75,10 @@ div#navbox{
 	content: "";
 	position: absolute;
 	z-index: -1;
-	top: 5px;
-	left: 5px;
-	right: 5px;
-	bottom: 5px;
+	top: 5pt;
+	left: 5pt;
+	right: 5pt;
+	bottom: 5pt;
 	border:inherit;
 
 }
@@ -88,24 +90,24 @@ div#navbox{
 }
 
 #header {
-	margin-bottom:8px;
+	margin-bottom:8pt;
 	height:3em;
 }
 
 a #header {
 	color:black;
 	text-decoration:none;
-	letter-spacing:3px;
+	letter-spacing:3pt;
 }
 
 #footer {
-	margin-top:8px;
+	margin-top:8pt;
 }
 
 span.validate{
 	color:red;
 	display:none;
-	padding-left:6px;
+	padding-left:6pt;
 }
 
 .sub{
@@ -120,7 +122,7 @@ span.validate{
 }
 
 #search_results{
-	padding-top:80px;
-	padding-left:40px;
+	padding-top:70pt;
+	padding-left:35pt;
 	display:none;
 }
