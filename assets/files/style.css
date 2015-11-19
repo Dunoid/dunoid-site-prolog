@@ -1,9 +1,10 @@
 body{
 	color: black;
 	background-color:#F7F5EC;
-	font-family:"Segoe UI", DengXian, "Microsoft MHei",  sans;
+	font-size:16px;
+	font-family:"Segoe UI", DengXian, "Microsoft MHei", sans-serif;
 	font-weight:200;
-	letter-spacing:2pt;
+	letter-spacing:2px;
 }
 
 a{
@@ -20,14 +21,14 @@ h1{
 	}
 
 h2{
-	letter-spacing:3pt;
+	letter-spacing:3px;
 	font-weight:300;
 }
 
 input{
 	background-color:#EEE9E2;
 	margin:0;
-	padding:0 2pt;
+	padding:0 2px;
 	display:inline;
 	
 	font:inherit;
