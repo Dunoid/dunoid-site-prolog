@@ -20,14 +20,14 @@ h1{
 	}
 
 h2{
-	letter-spacing:2px;
+	letter-spacing:3px;
 	font-weight:300;
 }
 
 input{
 	background-color:#EEE9E2;
 	margin:0;
-	padding:0 5px;
+	padding:0 2px;
 	display:inline;
 	
 	font:inherit;
@@ -61,7 +61,9 @@ div#navbox{
 #content {
 	border-right: 2px solid #294EB2;
 	border-left: 2px solid #294EB2;
-	max-width:1000px; 
+	width:75%;
+	max-width:2000px;
+	min-width:200px; 
 	margin:auto; 
 	padding:5px 30px 10px;
 	overflow:hidden;
