@@ -168,14 +168,13 @@ blerb(Page, art) --> %Only show the big blerb on page 1
 	{Page == 1},
 	html([
 		h2(class=banner,'My Art'),
-		p([class=banner,style='max-width:65%;'],[
+		p(class=[banner,blerb],[
 			'I\'m no master artist, but I like to think I\'m',
-			' alright at it.  And I hope to keep improving.'
-		]),
-		p([class=banner,style='max-width:650px;'],[
-				'For more of my art, go to ', 
-				a(href='http://dunoid.deviantart.com', 'my DevantART account'),
-				'.'
+			' alright at it.  And I hope to keep improving.',
+			br(/),br(/),
+			'For more of my art, go to ', 
+			a(href='http://dunoid.deviantart.com', 'my DevantART account'),
+			'.'
 		])
 	]);
 	html(h2(class=banner,'My Art')).
@@ -202,7 +201,7 @@ content_format(Index, Desc, art) -->
 		div(class=banner, [
 			img([class=art,src='/art/~w.png'-Index]),
 			br(/),
-			p([class=banner,style='height:100px; max-width:650px;'],Desc)
+			p([class=[banner,blerb]],Desc)
 		])).
 
 /*	Other Functions

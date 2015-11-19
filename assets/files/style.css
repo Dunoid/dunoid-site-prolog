@@ -1,7 +1,7 @@
 body{
 	color: black;
 	background-color:#F7F5EC;
-	font-size:16px;
+	font-size:20px;
 	font-family:"Segoe UI", DengXian, "Microsoft MHei", sans-serif;
 	font-weight:200;
 	letter-spacing:2px;
@@ -32,7 +32,7 @@ input{
 	display:inline;
 	
 	font:inherit;
-	font-size: 14pt;
+	font-size: 0.8em;
 	letter-spacing:inherit;
 	
 	border:none;
@@ -54,8 +54,15 @@ input:hover{
 }
 
 img.art{
-	max-width:100%;
-	max-width:100%;
+	max-width:90%;
+	max-width:90%;
+}
+
+.blerb{
+	margin-top:5px;
+	padding-bottom:30px;
+	width:65%;
+	min-width:450px;
 }
 
 div#navbox{
