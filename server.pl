@@ -35,8 +35,11 @@ safe_file_reply(Request) :-
 
 %Starting the server
 html_set_options( [dialect(xhtml)] ).
-:- http_server(http_dispatch, [port(8000)]).
+%For testing, port 8000 is used
+%:- http_server(http_dispatch, [port(8000)]). 
 
+%For the final product, port 80 is used
+%:- http_server(http_dispatch, [port(80)]).
 
 home_page(_) :-
 	basic_page(
