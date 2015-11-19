@@ -168,7 +168,7 @@ blerb(Page, art) --> %Only show the big blerb on page 1
 	{Page == 1},
 	html([
 		h2(class=banner,'My Art'),
-		p([class=banner,style='max-width:650px;'],[
+		p([class=banner,style='max-width:65%;'],[
 			'I\'m no master artist, but I like to think I\'m',
 			' alright at it.  And I hope to keep improving.'
 		]),
@@ -200,7 +200,7 @@ get_content(Index, End, Mode) -->
 content_format(Index, Desc, art) -->
 	html(
 		div(class=banner, [
-			img([style='max-width:85%; max-height:90%',src='/art/~w.png'-Index]),
+			img([class=art,src='/art/~w.png'-Index]),
 			br(/),
 			p([class=banner,style='height:100px; max-width:650px;'],Desc)
 		])).
