@@ -36,13 +36,13 @@ safe_file_reply(Request) :-
 
 %Starting the server
 html_set_options( [dialect(xhtml)] ).
+start_server(Port):- http_server(http_dispatch, [port(Port)]). 
 
 %ONE OF THESE MUST BE UN-COMMENTED FOR THE SERVER TO WORK
-%For testing, port 8000 is used
-%:- http_server(http_dispatch, [port(8000)]). 
+%For testing, port 8000 is used.  For public-facing servers, port 80 is used
 
-%For public-facing servers, port 80 is used
-%:- http_server(http_dispatch, [port(80)]).
+%start_server(8000).
+%start_server(80).
 
 home_page(_) :-
 	basic_page(
