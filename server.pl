@@ -7,6 +7,7 @@
 
 % Custom template module
 :- use_module(templates).
+:- use_module(server_io).
 
 %File locations
 :- multifile http:location/3.
@@ -35,10 +36,12 @@ safe_file_reply(Request) :-
 
 %Starting the server
 html_set_options( [dialect(xhtml)] ).
+
+%ONE OF THESE MUST BE UN-COMMENTED FOR THE SERVER TO WORK
 %For testing, port 8000 is used
 %:- http_server(http_dispatch, [port(8000)]). 
 
-%For the final product, port 80 is used
+%For public-facing servers, port 80 is used
 %:- http_server(http_dispatch, [port(80)]).
 
 home_page(_) :-
@@ -54,53 +57,3 @@ home_page(_) :-
 				'even write.']),
 			p(['To see my art, ', a(href=art, 'click here.')])
 		])).
-
-
-/*-- This was for testing the database functionality.
-     it will likely be reworked for a mailing list
-
-form_handler(Request) :-
-	catch(
-		form_page(Request),
-		_E, error_page(500,'Submission failed!', _E)
-	).
-	
-form_page(Request) :-	
-	catch(
-		http_parameters(Request, [ name(Name,[atom]), age(Age,[between(3, 150)]) ] ),
-		_E, throw(_E)
-	),
-	add_person(Name, Age),
-	basic_page(
-		'Submission successful',
-		html([
-			h2('Submission successful'),
-			p('Name: ~w'-Name),
-			p('Age: ~w'-Age)
-		])
-	).
-
-search_page(_) :-
-	basic_page(
-		'Search',
-		html([ 
-			div(class=sub,[
-				h2('Search People'),
-				p('Use an asterisk (*) for a wildcard.'),
-				%Weird, evil things are happening with this form
-				\name_age_form(search, search_people, get, 2, 'search_people')
-			]),
-			div([class=sub,id=search_results],'')
-		])
-	).
-
-search_people(Request) :-
-	catch(
-		http_parameters(Request, [ name(Name,[atom]), age(Age,[atom]) ] ),
-		_E,  fail
-	),
-	results_as_text(Name, Age, Text),
-	text_page(Text);
-	%If the search fails, it defaults to this result
-	text_page('There was an error in your search.').
-*/
