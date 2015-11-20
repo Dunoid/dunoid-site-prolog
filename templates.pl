@@ -50,6 +50,27 @@ link_button(URL, Style, Text) -->
 	html( a( 
 		href(URL), input([type=button, style=Style, value=Text])
 	)).
+	
+login_form(Action, Id) -->
+	html(
+		form([
+			name(login), 
+			action(Action),
+			method(post),
+			autocomplete(off)
+		],[
+			'Username:',br(/),
+			input([type(text), name(name)]),
+			br(/),br(/),
+			
+			'Password:',br(/),
+			input([type(password), name(password)]),
+			br(/),br(/),
+			
+			input([type(submit), value('Login')])
+		])
+	).
+
 
 /*	Page Templates
 *	full pages using the above content
