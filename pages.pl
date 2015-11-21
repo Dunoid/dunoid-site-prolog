@@ -5,7 +5,7 @@
 
 :- module(pages,[ 
                 blerb//2,            %Page, Mode (initial content at the start of every page)
-                content_format//3    %Index, String, Mode (each piece of content)
+                content_format//2    %String, Mode (each piece of content)
 				]).
 
 blerb(Page, art) -->
@@ -24,11 +24,19 @@ blerb(Page, art) -->
 	html(h2(class=banner,'My Art')).
 
 %This allows the same system to be reused on completely different types of content
-content_format(Index, Desc, art) -->
+content_format(String, art) -->
+	{
+	get_format(String, [Link, Desc])
+	},
 	html(
 		div(class=banner, [
-			img([class=art,src='/art/~w.png'-Index]),
+			img([class=art,src=Link]),
 			br(/),
 			p([class=[banner,blerb]],Desc)
 		])).
 
+content_format(String, test) -->
+	html(p(String)).
+
+get_format(String, List) :-
+	split_string(String, "#", "~n", List).

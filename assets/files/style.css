@@ -16,6 +16,10 @@ a:hover{
 	color:#4A12E5;
 }
 
+p:{
+	font-size:1rem;
+}
+
 h1{
 	font-weight:400;
 	}
@@ -25,7 +29,8 @@ h2{
 	font-weight:300;
 }
 
-input{
+.navigation, #writebox{
+	font-size:1rem;
 	background-color:#EEE9E2;
 	margin:0;
 	padding:0 2px;
@@ -43,14 +48,22 @@ input{
 	-webkit-transition: background-color 0.8s, border-color 0.3s;
 }
 
-input[type="text"]:focus{
+#writebox{
+	margin-bottom:8px;
+}
+
+.navigation:focus, .navigation:hover{
 	border-color:#3A6FFF;
 	background-color:#CAE4FF;
 }
 
-input:hover{
+.navigation:a {
+	color:black;
+}
+
+#writebox:focus{
 	border-color:#3A6FFF;
-	background-color:#CAE4FF;
+	
 }
 
 img.art{
@@ -66,7 +79,6 @@ img.art{
 }
 
 div#navbox{
-	font-size:20pt;
 	margin: 0px auto;
 	width:150pt;
 }
@@ -134,8 +146,10 @@ span.validate{
 	float:right;
 }
 
-#search_results{
-	padding-top:80px;
+#results, #preview{
+	padding-top:40px;
 	padding-left:40px;
+}
+#results{
 	display:none;
 }
