@@ -29,7 +29,7 @@ h2{
 	font-weight:300;
 }
 
-.navigation, #writebox{
+.input{
 	font-size:1rem;
 	background-color:#EEE9E2;
 	margin:0;
@@ -48,22 +48,23 @@ h2{
 	-webkit-transition: background-color 0.8s, border-color 0.3s;
 }
 
-#writebox{
-	margin-bottom:8px;
-}
-
-.navigation:focus, .navigation:hover{
+.input:focus, .input:hover{
 	border-color:#3A6FFF;
 	background-color:#CAE4FF;
 }
 
-.navigation:a {
+.input:a {
 	color:black;
+}
+
+#writebox{
+	margin-top:4px;
+	margin-bottom:8px;
 }
 
 #writebox:focus{
 	border-color:#3A6FFF;
-	
+	background-color:#EEE9E2;
 }
 
 img.art{
@@ -146,10 +147,8 @@ span.validate{
 	float:right;
 }
 
-#results, #preview{
+#results{
 	padding-top:40px;
 	padding-left:40px;
 }
-#results{
-	display:none;
-}
+

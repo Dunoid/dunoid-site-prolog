@@ -1,9 +1,15 @@
-﻿var preview_page = function(){
-	var radios, mode, input, preview, mode_selected = false;
+﻿submit_page = function(type){
+	var radios, mode, input, results, filename, send_info, mode_selected = false;
 	
 	radios = document.getElementsByName("mode_radio");
-	preview = document.getElementById("preview");
+	results = document.getElementById("results");
 	input = document.getElementById("writebox").value;
+	filename = document.getElementById("filename").value;
+	
+	if(input === "" || filename === ""){
+		results.innerHTML = "You must fill in the text boxes.";
+		return;
+	}
 	
 	for(var i = 0; i < radios.length; i++){
 		if(radios[i].checked) {
@@ -12,13 +18,24 @@
 		}
 	}
 	if(!mode_selected){
-		preview.innerHTML = "Please select a mode";
+		results.innerHTML = "Please select a mode";
 		return;
 	}
-	$.get("add/preview",
-		{data:input, mode:mode}, 
+	
+	if(type === "preview"){
+		send_info = {data:input, mode:mode};
+	}
+	else if (type === "write"){
+		send_info = {data:input, mode:mode, file:filename};
+	}
+	else{
+		results.innerHTML = "Internal error: type must be preview or write, but it's "+type;
+		return;
+	}
+	
+	$.get("add/"+type,
+		send_info,
 		function(data){
-			alert("Success");
-			preview.innerHTML = data;
+			results.innerHTML = data;
 		});
 }

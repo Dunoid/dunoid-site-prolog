@@ -14,18 +14,21 @@
                     ]).
 
 :- use_module(library(persistency)).	
+:- use_module(library(gensym)).
 
 /*	
 *	Databases
 */	
 
-:- persistent file(id:integer, mode:atom, filename:atom).
-:- persistent user(uid:atom, hash:atom, role:oneof([author, user]) ).
+:- persistent file(id:integer, mode:atom, filename:atom). %For written entries
+:- persistent user(uid:atom, role:oneof([author, user]), hash:atom, salt:float ). %For users
 
 :- db_attach('data.pl', []).
 
+%For the files database
+
 add_file(Mode, Filename) :- % Maybe assume the data is in order and just grab the top ID?
-	\+file(_, Mode, Filename), %Fail if there's already a file there
+	\+file(_, Mode, Filename), %Fail if there's already a file with this name
 	max_id(Mode, ID), % Largest ID
 	Next is ID+1,
 	assert_file(Next, Mode, Filename);
@@ -43,17 +46,21 @@ max_id(Mode, Max) :-
 	pairs_keys(Pairs, Keys),
 	max_list(Keys, Max).
 
+%For the user database
 add_user(UID, Password) :-
-	\+user(UID, _, _), %Fail if the user already exists
-	variant_sha1(Password, Hash),
-	assert_user(UID, Hash, user).
-	
-check_user(UID, Password, Access) :- %Designed to get the role and check password
-	user(UID, _, _),
+	\+user(UID, _, _, _), %Fail if the user already exists
+	random(Salt),
+	atom_concat(Password, Salt, Salted),
+	variant_sha1(Salted, Hash),
+	assert_user(UID, user, Hash, Salt).
+
+check_user(UID, Password, Access) :- %Check user's password and access
+	user(UID, _, _, Salt),
 	catch(
-		variant_sha1(Password, Hash), _, fail
+		( atom_concat(Password, Salt, Salted),
+		variant_sha1(Salted, Hash) ), _, fail
 	),
-	user(UID, Hash, Access).
+	user(UID, Access, Hash, Salt).
 	
 	
 /*	

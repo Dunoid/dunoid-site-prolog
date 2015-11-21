@@ -51,7 +51,7 @@ js(URL) -->
 link_button(URL, Style, Text) -->
 	html( a( 
 		[href=URL, style='color:black'],
-		div([class=navigation, style=Style], Text)
+		div([class=input, style=Style], Text)
 	)).
 	
 login_form(Action, Id) -->
@@ -63,12 +63,12 @@ login_form(Action, Id) -->
 			autocomplete=off
 		],[
 			'Username:',br(/),
-			input([type=text, name=uid, class=navigation]),
+			input([type=text, name=uid, class=input]),
 			br(/),br(/),
 			'Password:',br(/),
-			input([type=password, name=p, class=navigation]),
+			input([type=password, name=p, class=input]),
 			br(/),br(/),
-			input([type=submit, value='Login'])
+			input([type=submit, class=input, value='Login'])
 		])
 	).
 
