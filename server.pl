@@ -80,8 +80,7 @@ add_entry(Request) :-
 		_E, error_page(500, 'Submission Error', _E)
 	);
 	(
-		Username = default, %TODO: User database
-		Password = default, %TODO: Hashing
+		check_user(Username, Password, author),
 		basic_page(
 			'Write an Entry',
 			html([

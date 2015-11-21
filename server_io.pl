@@ -8,32 +8,57 @@
                     file_string/2,  %File, Out
                     add_file/2,     %Mode, FileName
                     get_file/3,     %ID, Mode, FileName
-					get_files/2     %Mode, Pairs
+					get_files/2,    %Mode, Pairs
+					add_user/2,     %UID, Password
+					check_user/3    %UID, Password, Role
                     ]).
 
 :- use_module(library(persistency)).	
 
+/*	
+*	Databases
+*/	
+
 :- persistent file(id:integer, mode:atom, filename:atom).
+:- persistent user(uid:atom, hash:atom, role:oneof([author, user]) ).
 
 :- db_attach('data.pl', []).
 
 add_file(Mode, Filename) :- % Maybe assume the data is in order and just grab the top ID?
+	\+file(_, Mode, Filename), %Fail if there's already a file there
 	max_id(Mode, ID), % Largest ID
 	Next is ID+1,
 	assert_file(Next, Mode, Filename);
 	assert_file(1, Mode, Filename).
-	
+
 get_file(ID, Mode, FileName) :-
 	file(ID, Mode, FileName).
-	
+
 get_files(Mode, Pairs) :-
 	findall(ID-Filename, file(ID, Mode, Filename), Pairs).
-	
+
 max_id(Mode, Max) :-
 	get_files(Mode, Pairs),
 	\+(Pairs == []),
 	pairs_keys(Pairs, Keys),
 	max_list(Keys, Max).
+
+add_user(UID, Password) :-
+	\+user(UID, _, _), %Fail if the user already exists
+	variant_sha1(Password, Hash),
+	assert_user(UID, Hash, user).
+	
+check_user(UID, Password, Access) :- %Designed to get the role and check password
+	user(UID, _, _),
+	catch(
+		variant_sha1(Password, Hash), _, fail
+	),
+	user(UID, Hash, Access).
+	
+	
+/*	
+*	Basic file and text functions
+*/	
 					
 % Basic text data for AJAX requests
 % TODO: make method for sending JSON data
