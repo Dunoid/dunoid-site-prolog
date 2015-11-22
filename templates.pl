@@ -1,4 +1,4 @@
-:- module(templates,[ 
+:- module(templates,[
                     basic_page/2,
                     error_page/3,
                     paginated/2,
@@ -16,7 +16,7 @@
 :- use_module(pages).
 :- use_module(server_io).
 
-/* 	Page Content 
+/*	Page Content
 *	elements that appear within a page.
 *	these aren't meant for use outside the module.
 */
@@ -38,7 +38,7 @@ css(URL) -->
 			rel('stylesheet'),
 			href(URL)
 		])).
-		
+
 js(default) -->
 	js('/scripts/jquery-1.11.3.min.js'),
 	js('/scripts/dunoid.js').
@@ -48,17 +48,17 @@ js(URL) -->
 		[src(URL), type('text/javascript')], []
 		)
 	).
-	
+
 link_button(URL, Style, Text) -->
-	html( a( 
+	html( a(
 		[href=URL, style='color:black'],
 		div([class=input, style=Style], Text)
 	)).
-	
+
 login_form(Action, Id) -->
 	html(
 		form([
-			name=login, 
+			name=login,
 			action=Action,
 			method=post,
 			autocomplete=off
@@ -83,10 +83,10 @@ basic_page(Title, Content) :-
 		reply_html_page(
 			[title(Title), \css(default), \js(default)],
 			[\header, div(id=content, Content),\footer]
-		), 
-		_E, error_page(500, 'Internal Server Error', _E) 
+		),
+		_E, error_page(500, 'Internal Server Error', _E)
 	).
-	
+
 error_page( ErrorType, Message, Error) :-
 	format(atom(Title), 'Is Dead - ~w Error',ErrorType),
 	basic_page(
@@ -108,7 +108,7 @@ error_page( ErrorType, Message, Error) :-
 *	onto a single page.
 *
 *	This isn't random access, which may be a problem in some uses.
-*	It is also very specific in how it's used, which could be an 
+*	It is also very specific in how it's used, which could be an
 *	issue in the long run.  Refactoring to allow a more flexible
 *	system will likely be a future task (searching by file date?).
 */
@@ -118,27 +118,27 @@ paginated(Name, Request) :-   %Default page size is five files
 
 paginated(Name, Length, Request) :-
 	catch(
-		http_parameters( Request, [ page(Page, [number, default(1)]) ] ), _E, 
+		http_parameters( Request, [ page(Page, [number, default(1)] ) ] ), _E,
 		error_page(500, 'Page Request Error', _E)
 	),
 	downcase_atom(Name, Mode),
 	format(atom(Title), '~w - Page ~w', [Name, Page]),
-	
+
 	End is Page*Length,	%Getting the indeces of the files
 	Start is End-(Length-1),
-	
+
 	%Making our query link
 	atom_concat(Mode, '?page=', Query),
-	
+
 	N is End+1,     %The ID for the next page to check if it exists
 	(get_file(N, Mode, _) ->
-		(Next is Page+1, atom_concat(Query, Next, NextLink) );	
+		(Next is Page+1, atom_concat(Query, Next, NextLink) );
 		NextLink='javascript:void(0)'),
-	
-	(Page > 1 -> 
-		(Prev is Page-1, atom_concat(Query, Prev, PrevLink) );	
+
+	(Page > 1 ->
+		(Prev is Page-1, atom_concat(Query, Prev, PrevLink) );
 		PrevLink='javascript:void(0)'),
-	
+
 	basic_page(
 		Title,
 		html([
@@ -157,7 +157,7 @@ get_content(Index, End, Mode) -->
 	{	%If these statements are false, it goes to the last line
 		Index =< End,
 		get_file(Index, Mode, File),  %Check if the file exists
-		format(Filename, '~w/~w', [Mode, File]),
+		format(atom(Filename), 'assets/~w/~w.txt', [Mode, File]),
 		file_string(Filename, String),
 		Next is Index+1
 	},
