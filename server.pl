@@ -85,11 +85,12 @@ add_entry(Request) :-
 	(
 		check_user(Username, Password, author),
 		http_session_assert(author),
+		(http_session_data(author) -> X = author; X = user),
 		basic_page(
 			'Write an Entry',
 			html([
 				div(class=sub,[
-					h2('Write a Page'),
+					h2('Write a Page,'+X),
 					p(['Page Type:', br(/),
 						\button('Programming'),
 						\button('Art'),

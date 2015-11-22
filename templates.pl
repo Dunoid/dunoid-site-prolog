@@ -30,6 +30,7 @@ footer -->
 	).
 
 css(default) -->
+	css('https://fonts.googleapis.com/css?family=Open+Sans:300,400'),
 	css('/files/style.css').
 
 css(URL) -->
