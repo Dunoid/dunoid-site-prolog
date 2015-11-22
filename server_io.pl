@@ -13,26 +13,31 @@
 					check_user/3    %UID, Password, Role
                     ]).
 
-:- use_module(library(persistency)).	
-:- use_module(library(gensym)).
+:- use_module(library(persistency)).
 
 /*	
 *	Databases
 */	
 
-:- persistent file(id:integer, mode:atom, filename:atom). %For written entries
-:- persistent user(uid:atom, role:oneof([author, user]), hash:atom, salt:float ). %For users
+:- persistent file( %For written entries
+	id:integer, mode:atom, filename:atom).
+	
+:- persistent user(
+	uid:atom, role:oneof([author, user]), hash:atom, salt:float ).
 
 :- db_attach('data.pl', []).
 
 %For the files database
 
-add_file(Mode, Filename) :- % Maybe assume the data is in order and just grab the top ID?
-	\+file(_, Mode, Filename), %Fail if there's already a file with this name
-	max_id(Mode, ID), % Largest ID
+add_file(Mode, Filename) :- 
+	%Fail if there's already a file with this name
+	\+file(_, Mode, Filename),
+	% Get Largest ID 
+	% (Maybe assume the data is in order and grab the top ID?)
+	(max_id(Mode, ID), 
 	Next is ID+1,
 	assert_file(Next, Mode, Filename);
-	assert_file(1, Mode, Filename).
+	assert_file(1, Mode, Filename)).
 
 get_file(ID, Mode, FileName) :-
 	file(ID, Mode, FileName).
@@ -42,7 +47,7 @@ get_files(Mode, Pairs) :-
 
 max_id(Mode, Max) :-
 	get_files(Mode, Pairs),
-	\+(Pairs == []),
+	\+(Pairs == []),	%Fail if the list is empty
 	pairs_keys(Pairs, Keys),
 	max_list(Keys, Max).
 

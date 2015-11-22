@@ -147,7 +147,7 @@ write_page(Request) :-
 	add_file(Mode, FileAtom),
 	split_string(FileAtom, " ", " ", L),
 	atomics_to_string(L, "-", Filename), %replace spaces with dashes
-	format(Output, '~w/~w.txt', [Mode, Filename]),
+	format(atom(Output), 'assets/~w/~w.txt', [Mode, Filename]),
 	
 	open(Output, write, Stream),
 	write(Stream, Content),
