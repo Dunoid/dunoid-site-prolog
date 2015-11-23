@@ -143,8 +143,24 @@ span.validate{
 	-webkit-box-shadow: none;
 }
 
+.left{
+	float:left;
+}
+
 .right{
 	float:right;
+}
+
+.programming{
+	max-width:45%;
+	min-width:400px;
+	margin-right:40px;
+}
+
+.p-img{
+	display:table-cell; 
+	vertical-align:middle;
+	padding-top:4em;
 }
 
 #results{

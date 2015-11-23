@@ -33,9 +33,7 @@
 		return;
 	}
 	
-	$.get("add/"+type,
-		send_info,
-		function(data){
-			results.innerHTML = data;
-		});
+	$.get("add/"+type, send_info, function(data){
+		results.innerHTML = data;
+	});
 }
