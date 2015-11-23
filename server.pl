@@ -59,7 +59,8 @@ home_page(_) :-
 			p(['My name is Devin Hastings, but I generally go by Dunoid when online, hence the ', 
 				'site\'s domain name.  I\'m an undergraduate majoring in Computer Science with ',
 				'minors in Mathematics and -if I can work in some summer credits- Russian.']),
-			p(['You can see my recent programming projects ', a(href=programming, 'here.')]),
+			p(['In addition to my education, I often work on side projects to keep me busy.  ',
+				 'You can see my recent programming projects ', a(href=programming, 'here.')]),
 			p(['Besides that, I fancy myself an ameteur artist.  I draw, compose, and sometimes ',
 				'even write.']),
 			p(['To see my art, ', a(href=art, 'click here.')])
