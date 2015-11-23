@@ -92,13 +92,13 @@ error_page( ErrorType, Message, Error) :-
 	basic_page(
 		Title,
 		html([
-			div(class=sub, [
+			div(class=left, [
 				h2('Error ~w - ~w'-[ErrorType,Message]),
 				p('Error Type:\n~w'-Error),
 				p('Maybe go back and try again?'),
 				a(href(/), 'Home')
 			] ),
-			div(class=[sub, right], img([src('/files/500.svg'), width=200]))
+			div(class=[right], img([src('/files/500.svg'), width=200]))
 		])
 	).
 
