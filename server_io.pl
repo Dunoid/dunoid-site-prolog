@@ -73,7 +73,6 @@ check_user(UID, Password, Access) :- %Check user's password and access
 */	
 					
 % Basic text data for AJAX requests
-% TODO: make method for sending JSON data
 
 text_page(String, Data) :-
 	format('Content-type:text/plain~n~n'),
