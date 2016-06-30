@@ -59,6 +59,13 @@ add_user(UID, Password) :-
 	variant_sha1(Salted, Hash),
 	assert_user(UID, user, Hash, Salt).
 
+add_author(UID, Password) :-
+	\+user(UID, _, _, _),
+	random(Salt),
+	atom_concat(Password, Salt, Salted),
+	variant_sha1(Salted, Hash),
+	assert_user(UID, author, Hash, Salt).
+
 check_user(UID, Password, Access) :- %Check user's password and access
 	user(UID, _, _, Salt),
 	catch(

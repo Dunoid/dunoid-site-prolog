@@ -17,16 +17,17 @@
 :- use_module(server_io).
 
 /*	Page Content
-*	elements that appear within a page.
-*	these aren't meant for use outside the module.
-*/
+ *	elements that appear within a page.
+ *	these aren't meant for use outside the module.
+ */
+
 header -->
 	html(
-		a( href(/), div( [class=banner,id=header], h1('Dunoid [WIP]') ) )
+		a( href(/), div( [class=banner,id=header], h1('|[Dunoid]|') ) )
 	).
 footer -->
 	html(
-		div( [class=banner,id=footer], p(['Dunoid.com ',&(copy),' Devin Hastings']) )
+		div( [class=banner,id=footer], p(['Dunoid.org ',&(copy),' Devin Hastings']) )
 	).
 
 css(default) -->

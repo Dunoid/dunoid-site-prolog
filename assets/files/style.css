@@ -1,7 +1,6 @@
 body{
 	color: black;
 	background-color:#888;
-	font-size:20px;
 	font-family:"Segoe UI", "Open Sans", DengXian, "Microsoft MHei", sans-serif;
 	font-weight:200;
 	letter-spacing:2px;
@@ -32,7 +31,6 @@ h2{
 
 .input{
 	font-size:1rem;
-	background-color:#EEE9E2;
 	margin:0;
 	padding:0 2px;
 	display:inline;
@@ -44,14 +42,15 @@ h2{
 	border:none;
 	border-right: 2pt solid #294EB2;
 	border-left: 2pt solid #294EB2;
-	
+
+	background-color:inherit;	
 	transition: background-color 0.8s, border-color 0.3s;
 	-webkit-transition: background-color 0.8s, border-color 0.3s;
 }
 
 .input:focus, .input:hover{
 	border-color:#3A6FFF;
-	background-color:#CAE4FF;
+	background-color:white;
 }
 
 .input:a {
@@ -64,8 +63,7 @@ h2{
 }
 
 #writebox:focus{
-	border-color:#3A6FFF;
-	background-color:#EEE9E2;
+	border-color:#3A6FFF; 
 }
 
 img.art{

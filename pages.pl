@@ -14,12 +14,8 @@ blerb(Page, art) -->
 	html([
 		h2(class=banner,'My Art'),
 		p(class=[banner,blerb],[
-			'I\'m no master artist, but I like to think I\'m',
-			' alright at it.  And I hope to keep improving.',
-			br(/),br(/),
-			'For more of my art, go to ',
-			a(href='http://dunoid.deviantart.com', 'my DevantART account'),
-			'.'
+			'More on ',
+			a(href='http://dunoid.deviantart.com', 'DevantART')
 		])
 	]);
 	html(h2(class=banner,'My Art')).
@@ -29,12 +25,9 @@ blerb(Page, programming) -->
 	html([
 		h2(class=banner, 'My Projects'),
 		p(class=[banner, blerb], [
-			'Besides going to school, I often start small ',
-			'side projects using technologies I find interesting.',
-			br(/), br(/),
-			'I recently set up an account on ',
-			a(href='https://github.com/Dunoid', 'Github'),
-			' for these projects, and all source code is available there.'])
+			'Code available on ',
+			a(href='https://github.com/Dunoid', 'Github')
+		])
 	]);
 	html(h2(class=banner, 'My Projects')).
 
