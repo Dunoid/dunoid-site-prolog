@@ -158,7 +158,7 @@ get_content(Index, End, Mode) -->
 	{	%If these statements are false, it goes to the last line
 		Index =< End,
 		get_file(Index, Mode, File),  %Check if the file exists
-		format(atom(Filename), 'assets/~w/~w.txt', [Mode, File]),
+		format(atom(Filename), 'assets/~w/~w', [Mode, File]),
 		file_string(Filename, String),
 		Next is Index+1
 	},

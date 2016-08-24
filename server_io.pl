@@ -31,8 +31,8 @@
 
 add_file(Mode, Filename) :- 
 	%Fail if there's already a file with this name
-	\+file(_, Mode, Filename),
-	% Get Largest ID 
+	\+file(_, Mode, Filename),!,
+	% Get Largest ID, or assert at 1 if there are no IDs 
 	% (Maybe assume the data is in order and grab the top ID?)
 	(max_id(Mode, ID), 
 	Next is ID+1,
@@ -91,7 +91,7 @@ text_page(String) :-
 %Parse my specific file format
 file_parse(File, StringList) :-
 	file_string(File, S),
-	split_string(S, '#', '~n', StringList).
+	atomic_list_concat(StringList, '#', S).
 	
 file_string(File, Out) :-
 	open(File, read, Str),

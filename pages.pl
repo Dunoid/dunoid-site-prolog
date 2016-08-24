@@ -31,7 +31,8 @@ blerb(Page, programming) -->
 	]);
 	html(h2(class=banner, 'My Projects')).
 
-%This allows the same system to be reused on completely different types of content
+%This allows the same system to be reused on completely different types
+% of content
 content_format(String, test) -->
 	html(p(String)).
 
@@ -80,4 +81,4 @@ prog_image_div(Image) -->
 	html('').
 
 get_format(String, List) :-
-	split_string(String, "#", "~n", List).
+	atomic_list_concat(List, '#', String).

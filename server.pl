@@ -112,11 +112,11 @@ preview_page(Request) :-
 		),
 		_E, (text_page('Submission error:<br>~w',_E), fail)
 	),
-	atom_string(DataAtom, Data),
-	phrase(content_format(Data, Mode), HTML, []),
+	phrase(content_format(DataAtom, Mode), HTML, []),
 	format('Content-type: text/html~n~n'),
 	
-	print_html(HTML).
+	print_html(HTML);%else
+	text_page('Something went wrong.').
 	
 write_page(Request) :-
 	http_session_data(author),
@@ -130,29 +130,26 @@ write_page(Request) :-
 		_E, (text_page('There was an error:~n<br>~w',_E), fail)
 	),
 	format('Content-type:text/plain~n~n'),
-	
-	(\+ add_file(Mode, FileAtom) -> 
-		(write('failed to add file\n'), fail)
-		;true),
-	split_string(FileAtom, " ", " ", L),
-	atomics_to_string(L, "-", Filename), %replace spaces with dashes
-	write('Writing file now...\n'),
-	format(atom(Output), 'assets/~w/~w.txt', [Mode, Filename]),
-	
-	catch(
-		(
+
+
+	atomic_list_concat(L, ' ', FileAtom),
+	atomic_list_concat(L, '-', FilenameIm), %replace spaces with dashes
+	atom_concat(FileNameIm, '.entry', Filename),
+	format(atom(Output), 'assets/~w/~w', [Mode, Filename]),
+
+	(\+ add_file(Mode, Filename) -> 
+		(write('Failed to add the file to the database.<br>\n'), fail)
+		;true),	
+	catch((
 		open(Output, write, Stream),
-		write('Found the file\n'),
 		write(Stream, Content),
 		close(Stream)
-		), 
-		_E, 
-		(	
-		format('Error:~n~w',_E), 
-		server_io:retractall_file(_,Mode,FileAtom), 
+		), _E, (
+		format('Error while writing file:~n~w',_E), 
+		server_io:retractall_file(_,Mode,Filename), 
 		fail
 		)
 	),
 	write('The upload was successful\n');
-	
+	!,
 	write('The upload failed.').
