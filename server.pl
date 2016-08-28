@@ -43,7 +43,14 @@ home_page(_) :-
 	basic_page(
 		'Home',
 		html([
-			p('Golly, I should really put something here!')
+			h2('Welcome to dunoid.org!'),
+			p('This is the personal site of Devin Hastings (a.k.a. me).'),
+			p('Here are some things that may interest you:'),
+			ul([
+				li(a([href='art'],'My Art')),
+				li(a([href='https://github.com/Dunoid/dunoid-site-prolog'], 'This site\'s source code')),
+				li(a([href='http://bugzilla.dunoid.org'], 'My Bugzilla Site'))
+			])
 		])).
 
 login(_) :-
