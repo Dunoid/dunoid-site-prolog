@@ -43,16 +43,28 @@ home_page(_) :-
 	basic_page(
 		'Home',
 		html([
-			h2('Welcome to dunoid.org!'),
-			p('This is the personal site of Devin Hastings (a.k.a. me).'),
-			p('Here are some things that may interest you:'),
-			ul([
-				li(a([href='art'],'My Art')),
-				li(a([href='https://github.com/Dunoid/dunoid-site-prolog'], 'This site\'s source code')),
-				li(a([href='http://bugzilla.dunoid.org'], 'My Bugzilla Site'))
+			div([style='width:60%;float:left;'],[
+				p('This is the personal site of Devin Hastings (a.k.a. Dunoid a.k.a. me).'),
+				\home_button(art, 'My Art'),
+				\home_button(programming, 'Programming Projects')
+			]),
+			div([align=center, style='width:35%;float:right;'],[
+				img([style='max-width:90%',
+				src='http://orig06.deviantart.net/93e7/f/2016/188/3/7/uck_by_dunoid-da93fz9.png']),
+				p('A self portrait... more or less')
 			])
 		])).
 
+home_button(Link, Text) -->
+	link_button(
+		Link, 
+		'	display:block;
+			font-size:1.2em;
+			width:100%;
+			max-width:450px;
+			text-align:center;',
+		Text).	
+	
 login(_) :-
 	basic_page(
 		'Login',
@@ -139,9 +151,7 @@ write_page(Request) :-
 	format('Content-type:text/plain~n~n'),
 
 
-	atomic_list_concat(L, ' ', FileAtom),
-	atomic_list_concat(L, '-', FilenameIm), %replace spaces with dashes
-	atom_concat(FileNameIm, '.entry', Filename),
+	atom_concat(FileAtom, '.entry', Filename),
 	format(atom(Output), 'assets/~w/~w', [Mode, Filename]),
 
 	(\+ add_file(Mode, Filename) -> 
