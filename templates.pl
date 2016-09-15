@@ -31,7 +31,6 @@ footer -->
 	).
 
 css(default) -->
-	css('https://fonts.googleapis.com/css?family=Open+Sans:300,400'),
 	css('/files/style.css').
 
 css(URL) -->
@@ -52,7 +51,7 @@ js(URL) -->
 
 link_button(URL, Style, Text) -->
 	html( a(
-		[href=URL, style='color:black'],
+		[href=URL],
 		div([class=input, style=Style], Text)
 	)).
 
@@ -125,13 +124,15 @@ paginated(Name, Length, Request) :-
 	downcase_atom(Name, Mode),
 	format(atom(Title), '~w - Page ~w', [Name, Page]),
 
-	End is Page*Length,	%Getting the indeces of the files
-	Start is End-(Length-1),
+	%Reverse chronological order for pages
+	max_id(Mode,Max),
+	Start is Max-(Page-1)*Length,
+	End is Start-Length,
 
 	%Making our query link
 	atom_concat(Mode, '?page=', Query),
 
-	N is End+1,     %The ID for the next page to check if it exists
+	N is End-1,     %The ID for the next page to check if it exists
 	(get_file(N, Mode, _) ->
 		(Next is Page+1, atom_concat(Query, Next, NextLink) );
 		NextLink='javascript:void(0)'),
@@ -153,14 +154,14 @@ paginated(Name, Length, Request) :-
 	).
 
 %Getting the content from multiple files
-
+%Changed to reverse chronological order
 get_content(Index, End, Mode) -->
 	{	%If these statements are false, it goes to the last line
-		Index =< End,
+		Index >= End,
 		get_file(Index, Mode, File),  %Check if the file exists
 		format(atom(Filename), 'assets/~w/~w', [Mode, File]),
 		file_string(Filename, String),
-		Next is Index+1
+		Next is Index-1
 	},
 	html([
 		\content_format(String, Mode),

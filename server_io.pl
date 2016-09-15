@@ -10,7 +10,8 @@
                     get_file/3,     %ID, Mode, FileName
 					get_files/2,    %Mode, Pairs
 					add_user/2,     %UID, Password
-					check_user/3    %UID, Password, Role
+					check_user/3,   %UID, Password, Role
+					max_id/2        %Mode, MaxID
                     ]).
 
 :- use_module(library(persistency)).

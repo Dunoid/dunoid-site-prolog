@@ -43,25 +43,20 @@ home_page(_) :-
 	basic_page(
 		'Home',
 		html([
-			div([style='width:60%;float:left;'],[
-				p('This is the personal site of Devin Hastings (a.k.a. Dunoid a.k.a. me).'),
-				\home_button(art, 'My Art'),
-				\home_button(programming, 'Programming Projects')
-			]),
-			div([align=center, style='width:35%;float:right;'],[
-				img([style='max-width:90%',
-				src='http://orig06.deviantart.net/93e7/f/2016/188/3/7/uck_by_dunoid-da93fz9.png']),
-				p('A self portrait... more or less')
-			])
+			\home_button(art, 'My Art'),
+			\home_button(programming, 'Programming Projects'),
+			\home_button('http://bugzilla.dunoid.org', 'Bugzilla'),
+			p('This is the personal site of Devin Hastings (a.k.a. Dunoid a.k.a. me).')
 		])).
 
 home_button(Link, Text) -->
 	link_button(
 		Link, 
 		'	display:block;
-			font-size:1.2em;
+			margin:auto;
+			font-size:1.6em;
 			width:100%;
-			max-width:450px;
+			max-width:650px;
 			text-align:center;',
 		Text).	
 	
@@ -138,35 +133,35 @@ preview_page(Request) :-
 	text_page('Something went wrong.').
 	
 write_page(Request) :-
-	http_session_data(author),
-	catch(
-		http_parameters(
-			Request, [
-			mode(Mode, [atom]),
-			file(FileAtom, [atom]),
-			data(Content, [atom])
-		]),
-		_E, (text_page('There was an error:~n<br>~w',_E), fail)
-	),
-	format('Content-type:text/plain~n~n'),
+	http_session_data(author),(
+		catch(
+			http_parameters(
+				Request, [
+				mode(Mode, [atom]),
+				file(FileAtom, [atom]),
+				data(Content, [atom])
+			]),
+			_E, (text_page('There was an error:~n<br>~w',_E), fail)
+		),
+		format('Content-type:text/plain~n~n'),
 
+		atom_concat(FileAtom, '.entry', Filename),
+		format(atom(Output), 'assets/~w/~w', [Mode, Filename]),
 
-	atom_concat(FileAtom, '.entry', Filename),
-	format(atom(Output), 'assets/~w/~w', [Mode, Filename]),
-
-	(\+ add_file(Mode, Filename) -> 
-		(write('Failed to add the file to the database.<br>\n'), fail)
-		;true),	
-	catch((
-		open(Output, write, Stream),
-		write(Stream, Content),
-		close(Stream)
-		), _E, (
-		format('Error while writing file:~n~w',_E), 
-		server_io:retractall_file(_,Mode,Filename), 
-		fail
-		)
-	),
-	write('The upload was successful\n');
-	!,
-	write('The upload failed.').
+		(\+ add_file(Mode, Filename) -> 
+			(write('Failed to add the file to the database.<br>\n'), fail)
+			;true),	
+		catch((
+			open(Output, write, Stream),
+			write(Stream, Content),
+			close(Stream)
+			), _E, (
+				format('Error while writing file:~n~w',_E), 
+				server_io:retractall_file(_,Mode,Filename), 
+				fail
+			)
+		),
+		write('The upload was successful\n');
+		!, write('The upload failed.')
+	); 
+	!, text_page('Access was denied.').
