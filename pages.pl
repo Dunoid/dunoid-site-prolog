@@ -64,7 +64,7 @@ content_format(String, programming) -->
 				p(['Languages/Technologies Used:', br(/), b(Languages)]),
 				hr(style='width:60%; float:left;'),
 				br(/),
-				a(href=Link, 'On Github'),
+				a(href=Link, 'More Info'),
 				br(/),
 				p(Desc)
 			]),
